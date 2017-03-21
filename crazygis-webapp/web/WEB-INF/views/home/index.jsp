@@ -195,11 +195,13 @@
                             //40 是toolbar的高度
                             var height = masterpage.contentBodyHeight - 40,
                                 width = masterpage.contentBodyWidth;
+
                             $("#contentPanel").css("height", height + 40 + "px");
+
+                            if(pageLogic.map) {
+                                pageLogic.map.updateSize();
+                            }
                         });
-                        if(pageLogic.map) {
-                            pageLogic.map.updateSize();
-                        }
                     },
                     //在布局计算后创建控件
                     after: function () {

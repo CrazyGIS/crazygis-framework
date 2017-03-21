@@ -66,7 +66,7 @@
     subMenu = new SystemMenu();
     subMenu.setFunctionId(UUID.randomUUID().toString().toLowerCase());
     subMenu.setFunctionCode("01_01");
-    subMenu.setFunctionName("点图层管理");
+    subMenu.setFunctionName("点图层");
     subMenu.setEnabled(true);
     //subMenu.setUrl("/layer/point");
     subMenu.setUrl("/building");
@@ -76,7 +76,7 @@
     subMenu = new SystemMenu();
     subMenu.setFunctionId(UUID.randomUUID().toString().toLowerCase());
     subMenu.setFunctionCode("01_02");
-    subMenu.setFunctionName("线图层管理");
+    subMenu.setFunctionName("线图层");
     subMenu.setEnabled(true);
     //subMenu.setUrl("/layer/linestring");
     subMenu.setUrl("/building");
@@ -86,7 +86,7 @@
     subMenu = new SystemMenu();
     subMenu.setFunctionId(UUID.randomUUID().toString().toLowerCase());
     subMenu.setFunctionCode("01_03");
-    subMenu.setFunctionName("面图层管理");
+    subMenu.setFunctionName("面图层");
     subMenu.setEnabled(true);
     //subMenu.setUrl("/layer/polygon");
     subMenu.setUrl("/building");
@@ -126,7 +126,7 @@
             "/scripts/Page/ui.headWave.js",
             "/scripts/Page/ui.masterpage.js",
             "/scripts/Page/ui.messagebox.js",
-            "/scripts/Page/ui.menubar.js"
+            "/scripts/Page/ui.menu.js"
     )%>
 
     <sitemesh:write property='ex-section.headjs'/>
