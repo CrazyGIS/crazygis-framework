@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<sitemesh>
+    <content-processor class="com.crazygis.web.sitemesh.SevenContentProcessor">
+        <!--<tag-rule-bundle class="com.seven.web.support.sitemesh.JSSectionTagRuleBundle" />-->
+        <!--<tag-rule-bundle class="com.seven.web.support.sitemesh.CSSSectionTagRuleBundle" />-->
+        <tag-rule-bundle class="com.crazygis.web.sitemesh.ExSectionTagRuleBundle" />
+        <tag-rule-bundle class="org.sitemesh.content.tagrules.html.DivExtractingTagRuleBundle" />
+    </content-processor>
+
+    <includeErrorPages>False</includeErrorPages>
+
+    <mapping path="/*" decorator="/WEB-INF/views/shared/layout.jsp"/>
+
+    <!-- 排除以下路径中的资源，不进行装饰（不加入到布局中） -->
+    <mapping path="/signin" exclue="true"/>
+    <mapping path="/signout" exclue="true"/>
+    <mapping path="/error" exclue="true"/>
+    <mapping path="/ajaxerror" exclue="true"/>
+    <mapping path="/scripts/*" exclue="true"/>
+    <mapping path="/content/*" exclue="true"/>
+    <mapping path="/map/*" exclue="true"/>
+</sitemesh>

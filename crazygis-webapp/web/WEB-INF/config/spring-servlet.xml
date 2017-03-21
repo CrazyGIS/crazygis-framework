@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/cache
+        http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/plain;charset=UTF-8</value>
+                        <value>text/html;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json</value>
+                    </list>
+                </property>
+                <property name="fastJsonConfig" ref="fastJsonConfig" />
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <bean id="fastJsonConfig" class="com.alibaba.fastjson.support.config.FastJsonConfig">
+        <property name="charset" value="UTF-8" />
+        <property name="dateFormat" value="yyyy-MM-dd'T'HH:mm:ssZ" />
+        <property name="serializerFeatures">
+            <list>
+                <value>WriteDateUseDateFormat</value>
+                <value>WriteMapNullValue</value>
+                <value>QuoteFieldNames</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 自动扫描指定的包及其所有子包下标识有以下注解的类，并将这些类自动注册为Spring Bean的类
+         @Component:通用的构造型注解，标识该类为Spring组件
+　　　　  @Controller:标识该类定义为Spring MVC controller
+　　　　　@Repository:标识将该类定义为数据仓库
+　　　　　@Service:标识将该类定义为服务 -->
+    <context:component-scan base-package="com.crazygis.webapp.controller"/>
+    
+    <mvc:resources mapping="/content/**" location="/content/"/>
+    <mvc:resources mapping="/scripts/**" location="/scripts/"/>
+    <mvc:resources mapping="/map/**" location="/map/"/>
+
+    <mvc:annotation-driven></mvc:annotation-driven>
+
+    <!-- 配置ViewResolver -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:order="1">
+        <!--<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>-->
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+        <!--添加此配置，解决页面内容编码的问题-->
+        <property name="contentType" value="text/html;charset=UTF-8"/>
+    </bean>
+
+    <!--
+		在Servlet 3.0中使用如下配置启用文件上传功能，详情参考：
+        http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#mvc-multipart
+    -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+    </bean>
+
+    <!--用户对象上下文-->
+    <bean id="userContext" class="com.crazygis.web.UserContext"/>
+
+</beans>

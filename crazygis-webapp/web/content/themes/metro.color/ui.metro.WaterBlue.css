@@ -1,0 +1,89 @@
+/*
+    Color : #259CD6
+    Name : 水蓝
+*/
+
+.head-color {
+    background-color: #198BC9;
+}
+
+.title-color {
+    background-color: transparent;
+}
+
+a {
+    color:#259CD6;
+}
+
+.font-highlight {
+    color: #259CD6 !important;
+}
+
+.font-highlight-hover:hover {
+    color: #259CD6 !important;
+}
+
+.background-highlight {
+    background-color: #259CD6 !important;
+    color: #FFFFFF;
+}
+
+.background-highlight-hover:hover {
+    background-color: #259CD6 !important;
+    color: #FFFFFF;
+}
+
+.border-highlight {
+    border-color: #259CD6 !important;
+}
+
+.border-highlight-hover:hover {
+    border-color: #259CD6 !important;
+}
+
+
+.icon-button:hover, .tool-button:hover, .button-highlight {
+    color: #259CD6;
+    border-color: #259CD6;
+}
+
+.icon-button:active, .tool-button:active {
+    background-color: #259CD6 !important;
+    color: #FFFFFF;
+}
+
+.tools input[type="text"]:focus, .tools textarea:focus, .tools select:focus {
+    background-color: transparent;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:focus {
+    border-color: #259CD6;
+}
+
+::selection
+{
+    background-color: #259CD6;
+    color:#FFFFFF;
+}
+
+::-moz-selection
+{
+    background-color: #259CD6;
+    color:#FFFFFF;
+}
+
+/*UI Ctrls Style*/
+
+/*dateChooser*/
+div.calendar-panel td:hover {
+    color: #259CD6;
+}
+div.date-panel div.days-panel td.other-month:hover {
+    color: #259CD6;
+}
+div.calendar-panel div.prev:hover {
+    border-color: transparent #259CD6 transparent transparent;
+}
+div.calendar-panel div.next:hover {
+    border-color: transparent transparent transparent #259CD6;
+}

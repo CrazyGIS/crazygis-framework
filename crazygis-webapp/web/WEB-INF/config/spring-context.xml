@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/context
+					    http://www.springframework.org/schema/context/spring-context.xsd
+					    http://www.springframework.org/schema/aop
+					    http://www.springframework.org/schema/aop/spring-aop.xsd
+					    http://www.springframework.org/schema/beans
+					    http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/cache
+                        http://www.springframework.org/schema/cache/spring-cache.xsd"
+       default-autowire="byName"
+       default-lazy-init="true">
+
+    <!-- 将配置的上下文信息放入自定义类SpringContext(实现了接口ApplicationContextAware)中 -->
+    <bean id="springContext" class="com.crazygis.web.spring.SpringContext" lazy-init="false"></bean>
+
+    <!-- 自动装配 Spring Bean, 通过以下注解
+         @Autowired
+         @Resource
+     -->
+    <context:annotation-config/>
+
+
+    <aop:aspectj-autoproxy />
+
+    <!-- 将多个配置文件读取到容器中，交给Spring管理 -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="locations" ref="propertyResources"/>
+    </bean>
+    <bean id="propertiesManager" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="fileEncoding" value="UTF-8"/>
+        <property name="locations" ref="propertyResources"/>
+    </bean>
+
+    <!-- 将多个配置文件位置放到列表中 -->
+    <bean id="propertyResources" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <value>/WEB-INF/config/appconfig.properties</value>
+            </list>
+        </constructor-arg>
+    </bean>
+
+
+    <!--配置缓存-->
+    <!-- 启用缓存注解功能(请将其配置在Spring主配置文件中) -->
+    <cache:annotation-driven cache-manager="cacheManager" />
+
+    <!-- Spring自己的基于java.util.concurrent.ConcurrentHashMap实现的缓存管理器(该功能是从Spring3.1开始提供的) -->
+    <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+        <property name="caches">
+            <set>
+                <bean name="myCache" class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"/>
+            </set>
+        </property>
+    </bean>
+
+</beans>

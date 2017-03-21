@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+					           	 http://www.springframework.org/schema/beans/spring-beans.xsd
+					           	 http://www.springframework.org/schema/security
+					           	 http://www.springframework.org/schema/security/spring-security.xsd"
+             default-lazy-init="true">
+
+    <!-- 使前端页面的标签 <sec:authorize> 起作用 -->
+    <beans:bean class="org.springframework.security.web.access.DefaultWebInvocationPrivilegeEvaluator">
+        <beans:constructor-arg name="securityInterceptor" ref="filterSecurityInterceptor"/>
+    </beans:bean>
+
+    <!-- 配置以下资源可以跳过springSecurity安全拦截，可直接访问 -->
+    <http pattern="/scripts/**" security="none"/>
+    <http pattern="/content/**" security="none"/>
+    <http pattern="/map/**" security="none"/>
+    <!--
+        登录页面不能设置为security='none',否则CSRF Token在登录页面上无法生成,
+        需要配置signin页面的访问授权为匿名访问.在本系统中，
+        有关登录页面的默认配置在seven-support的DefaultSecurityManager实现
+    -->
+    <http pattern="/signin**" security="none"/>
+    <http pattern="/error" security="none"/>
+
+    <http once-per-request="true"
+          use-expressions="true"
+          disable-url-rewriting="true"
+          access-decision-manager-ref="customAccessDecisionManager"
+          authentication-manager-ref="authenticationManager"
+          entry-point-ref="loginUrlAuthenticationEntryPoint">
+        <!-- 拦截所有请求，必须是HTTP协议 -->
+        <intercept-url pattern="/**" requires-channel="http"/>
+        <!-- session管理 -->
+        <session-management invalid-session-url="/signin"/>
+        <!-- 登录认证 default-target-url="/index" -->
+        <!--<form-login login-page="/signin"-->
+                    <!--authentication-success-handler-ref="customAuthenticationSuccessHandler"-->
+                    <!--authentication-failure-handler-ref="customAuthenticationFailureHandler"/>-->
+        <!-- 登出：session失效，删除session对应的cookie， cookie名称见web.xml中配置session过期部分 -->
+        <logout invalidate-session="true" delete-cookies="JSESSIONID" logout-success-url="/signin"/>
+        <!-- 访问资源被拒绝 -->
+        <access-denied-handler ref="accessDeniedHandler"/>
+        <!-- 功能权限认证Filter -->
+        <custom-filter ref="filterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR"/>
+        <custom-filter ref="usernamePasswordAuthenticationFilter" position="FORM_LOGIN_FILTER"/>
+        <csrf disabled="true"/>
+    </http>
+
+    <!-- 访问资源被拒绝处理器 -->
+    <beans:bean id="accessDeniedHandler" class="com.crazygis.security.springsecurity.CrazygisAccessDeniedHandler">
+        <beans:property name="errorPage" value="/error"/>
+        <beans:property name="csrfErrorPage" value="/error"/>
+    </beans:bean>
+
+    <!-- 资源权限拦截器 -->
+    <beans:bean id="filterSecurityInterceptor"
+          class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+        <beans:property name="observeOncePerRequest" value="false"/>
+        <beans:property name="authenticationManager" ref="authenticationManager" />
+        <beans:property name="securityMetadataSource" ref="customSecurityMetadataSource" />
+        <beans:property name="accessDecisionManager" ref="customAccessDecisionManager" />
+        <!--拦截所有资源-->
+        <!--<beans:property name="rejectPublicInvocations" value="true"/>-->
+    </beans:bean>
+
+    <!-- 自定义的权限业务组件配置 -->
+    <beans:bean id="defaultSecurityManager" class="com.crazygis.security.springsecurity.DefaultSecurityManager">
+    </beans:bean>
+
+    <!-- 用户认证服务组件配置 -->
+    <beans:bean id="customUserDetailsService"
+                class="com.crazygis.security.springsecurity.CrazygisCustomUserDetailsService">
+        <beans:property name="userManager" ref="defaultSecurityManager"/>
+    </beans:bean>
+
+    <!-- 认证管理器，实现用户认证的入口，主要实现UserDetailsService接口即可 -->
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider user-service-ref="customUserDetailsService">
+            <!-- 用户的密码采用md5加密 -->
+            <password-encoder hash="md5">
+                <!-- 采用盐值加密 -->
+                <!--<salt-source user-property="username"/>-->
+            </password-encoder>
+        </authentication-provider>
+    </authentication-manager>
+
+    <!-- 资源源数据定义，即定义某一资源可以被哪些角色访问 -->
+    <beans:bean id="customSecurityMetadataSource"
+                class="com.crazygis.security.springsecurity.CrazygisFilterInvocationSecurityMetadataSource"
+                init-method="initRequestMap">
+        <beans:property name="secureObjectManager" ref="defaultSecurityManager"/>
+    </beans:bean>
+
+    <!-- 访问决策器，决定某个用户具有的角色，是否有足够的权限去访问某个资源 -->
+    <beans:bean id="customAccessDecisionManager"
+                class="com.crazygis.security.springsecurity.CrazygisCustomAccessDecisionManager"/>
+
+    <!-- 身份认证成功处理器 -->
+    <beans:bean id="customAuthenticationSuccessHandler"
+                class="com.crazygis.security.springsecurity.auth.CustomAuthenticationSuccessHandler">
+        <beans:property name="defaultTargetUrl" value="/index"/>
+    </beans:bean>
+
+    <!-- 身份认证失败处理器 -->
+    <beans:bean id="customAuthenticationFailureHandler"
+                class="com.crazygis.security.springsecurity.auth.CustomAuthenticationFailureHandler">
+        <beans:property name="defaultFailureUrl" value="/signin?error=1"/>
+    </beans:bean>
+
+    <beans:bean id="loginUrlAuthenticationEntryPoint"
+                class="com.crazygis.security.springsecurity.CrazygisLoginUrlAuthenticationEntryPoint">
+        <beans:constructor-arg name="loginFormUrl" value="/signin"/>
+    </beans:bean>
+
+    <beans:bean id="usernamePasswordAuthenticationFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+        <beans:property name="authenticationManager" ref="authenticationManager"></beans:property>
+        <beans:property name="authenticationSuccessHandler" ref="customAuthenticationSuccessHandler"></beans:property>
+        <beans:property name="authenticationFailureHandler" ref="customAuthenticationFailureHandler"></beans:property>
+    </beans:bean>
+</beans:beans>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- status：log4j2自身内部的信息输出；
+     monitorInterval：每隔X秒,自动监控该配置文件是否有变化,如果变化,则自动根据文件内容重新配置 -->
+<Configuration status="ERROR" monitorInterval="1800">
+    <!-- 变量定义 -->
+    <Properties>
+        <Property name="logPath">${sys:catalina.home}/logs/cg-web</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- 控制台输出 -->
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%p] [%d{yyyy-MM-dd HH:mm:ss}] [Class=%C | Method=%M | Line=%L] | %m%n"/>
+        </Console>
+
+        <!-- 文件输出 -->
+        <RollingFile name="trace-info" fileName="${logPath}/trace-info.log"
+                     filePattern="${logPath}/trace-info-%d{yyyy-MM-dd}_%i.log">
+            <PatternLayout pattern="[%p] [%d{yyyy-MM-dd HH:mm:ss}] [Class=%C | Method=%M | Line=%L] | %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="24"/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+        </RollingFile>
+
+        <!-- 数据库：记录系统日志 -->
+        <!--<Jdbc name="database" tableName="sys_log_system">-->
+            <!--<ConnectionFactory class="com.istrong.xdtz.yh.db.ConnectionFactory" method="getDatabaseConnection" />-->
+            <!--<Column name="ID" pattern="%X{ID}" isUnicode="false" /> &lt;!&ndash; 日志流水号 &ndash;&gt;-->
+            <!--<Column name="CLASS_NAME" pattern="%X{CLASS_NAME}" isUnicode="false" /> &lt;!&ndash; 类名 &ndash;&gt;-->
+            <!--<Column name="METHOD_NAME" pattern="%X{METHOD_NAME}" isUnicode="false" /> &lt;!&ndash; 方法名 &ndash;&gt;-->
+            <!--<Column name="REMARK" pattern="%message" isUnicode="false" /> &lt;!&ndash; 备注 &ndash;&gt;-->
+            <!--<Column name="RECORD_TIME" isEventTimestamp="true" /> &lt;!&ndash; 记录时间 &ndash;&gt;-->
+        <!--</Jdbc>-->
+    </Appenders>
+
+    <Loggers>
+        <!--<Logger name="SystemLogServiceImpl" level="error" additivity="false">-->
+            <!--<AppenderRef ref="console" level="error" />-->
+        <!--</Logger>-->
+        <Root level="info">
+            <AppenderRef ref="console" level="info" />
+            <AppenderRef ref="trace-info" level="info" />
+        </Root>
+    </Loggers>
+</Configuration>
