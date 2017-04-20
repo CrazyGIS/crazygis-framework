@@ -53,7 +53,7 @@
                 position: absolute;
                 top:0px;
                 font-size: 32px;
-                width: 450px;
+                width: 420px;
                 height: 100px;
                 overflow: hidden;
                 left: 50%;
@@ -161,7 +161,7 @@
                 case "Bad credentials":
                     errorMessage = "用户名或密码错误";
                     break;
-                case "User is disabled":
+                case "SysUser is disabled":
                     errorMessage = "此用户已被禁用";
                     break;
                 default:
@@ -188,7 +188,10 @@
         <%--<img src="<%=PageResource.formatSrc("/content/images/wave.png")%>" style="width:100%;height:100%;" alt="" />--%>
     <%--</div>--%>
     <%--<div id="dynamicBG"></div>--%>
-    <h1 id="title" class="font-highlight">CrazyGIS Framework DEMO</h1>
+    <div style="width: 161px;height: 161px;">
+        <img src="<%=PageResource.formatSrc("/content/images/wt/logo.png")%>" style="width:100%;height:100%;" alt="" />
+    </div>
+    <h1 id="title" class="font-highlight">江苏省地方海事水上交通安全监测预警(VITS)系统</h1>
     <div id="loginForm">
         <div class="panel-background"></div>
         <div class="panel-content">

@@ -22,7 +22,7 @@
         <repository>
             <id>localRepository</id>
             <name>Local Repository</name>
-            <url>http://localhost:8082/repository/maven-public/</url>
+            <url>http://10.23.1.69:8081/repository/maven-public/</url>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>
@@ -59,12 +59,12 @@
         <repository>
             <id>Release</id>
             <name>maven-releases</name>
-            <url>http://localhost:8082/repository/maven-releases/</url>
+            <url>http://10.23.1.69:8081/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>Snapshot</id>
             <name>maven-snapshots</name>
-            <url>http://localhost:8082/repository/maven-snapshots/</url>
+            <url>http://10.23.1.69:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
@@ -79,6 +79,12 @@
         <crazygis-web.version>1.0-SNAPSHOT</crazygis-web.version>
 
         <commons-lang3.version>3.4</commons-lang3.version>
+        <commons-math3.version>3.6.1</commons-math3.version>
+        <commons-collections4.version>4.1</commons-collections4.version>
+        <commons-beanutils.version>1.9.2</commons-beanutils.version>
+        <commons-codec.version>1.10</commons-codec.version>
+        <commons-io.version>2.5</commons-io.version>
+
         <aspectj.version>1.8.9</aspectj.version>
         <log4j.version>2.6.2</log4j.version>
         <slf4j.version>1.7.21</slf4j.version>
@@ -87,6 +93,8 @@
         <javax.servlet-api.version>2.5</javax.servlet-api.version>
         <spring.version>4.3.1.RELEASE</spring.version>
         <spring-security.version>4.1.1.RELEASE</spring-security.version>
+
+        <jackson.version>2.4.2</jackson.version>
     </properties>
 
     <dependencies>

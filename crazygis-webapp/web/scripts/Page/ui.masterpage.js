@@ -522,7 +522,7 @@
                 "</li>",
                 "<li>",
                 "<span>退出</span>",
-                "<a href='/Account/LogOff'></a>",
+                "<a href='", masterpage.ctxPath, "/logout'></a>",
                 "</li>",
                 "</ul>"
             );
@@ -531,8 +531,8 @@
             element
                 .append(userInfo)
                 .append("<hr />")
-                .append(lightColor)
-                .append("<hr />")
+                //.append(lightColor)
+                //.append("<hr />")
                 .append(cmdList);
             
             userSidebar = this.sidebarManager.setElement("userSidebar", {

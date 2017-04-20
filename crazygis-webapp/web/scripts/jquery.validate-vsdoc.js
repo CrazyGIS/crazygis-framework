@@ -148,7 +148,7 @@ $.extend($.fn, {
 		/// <summary>
 		/// Return the validations rules for the first selected element.
 		/// </summary>
-		/// <param name="command" type="String">
+		/// <param name="page" type="String">
 		/// Can be either "add" or "remove".
 		/// </param>
 		/// <param name="argument" type="">

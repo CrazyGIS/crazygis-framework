@@ -61679,7 +61679,7 @@ VectorTileFeature.prototype.loadGeometry = function() {
             }
 
         } else {
-            throw new Error('unknown command ' + cmd);
+            throw new Error('unknown page ' + cmd);
         }
     }
 
@@ -61720,7 +61720,7 @@ VectorTileFeature.prototype.bbox = function() {
             if (y > y2) y2 = y;
 
         } else if (cmd !== 7) {
-            throw new Error('unknown command ' + cmd);
+            throw new Error('unknown page ' + cmd);
         }
     }
 

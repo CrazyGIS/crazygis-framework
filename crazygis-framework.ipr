@@ -234,7 +234,12 @@
     <file url="file://$PROJECT_DIR$/crazygis-common/src/main/java/com/crazygis/common/exceptions/DataAccessException.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/crazygis-common/src/main/java/com/crazygis/common/exceptions/ExceptionHelper.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/crazygis-data-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/crazygis-data-api/src/main/java/com/crazygis/data/IBasicDao.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/crazygis-data-api/src/main/java/com/crazygis/data/page/OraclePageCommand.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/crazygis-data-api/src/main/java/com/crazygis/data/page/PageCommand.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/crazygis-data-api/src/main/java/com/crazygis/data/page/PageResult.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/crazygis-data-springjdbc" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/crazygis-data-springjdbc/src/main/java/com/crazygis/data/springjdbc/OracleBasicDao.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/crazygis-security-api" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/crazygis-security-springsecurity" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/crazygis-web" charset="UTF-8" />
@@ -246,6 +251,9 @@
     <file url="file://$PROJECT_DIR$/crazygis-web/src/main/java/com/crazygis/web/sitemesh/JSSectionTagRuleBundle.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/crazygis-web/src/main/java/com/crazygis/web/sitemesh/SevenConfigurableSiteMeshFilter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/crazygis-web/src/main/java/com/crazygis/web/sitemesh/SevenContentProcessor.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/crazygis-web/src/main/java/com/crazygis/web/view/ContentView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/crazygis-web/src/main/java/com/crazygis/web/view/EmptyView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/crazygis-web/src/main/java/com/crazygis/web/view/JsonView.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/crazygis-webapp" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/crazygis-webapp/src/main/java/com/crazygis/webapp/controller/DefaultController.java" charset="UTF-8" />
   </component>
@@ -254,6 +262,10 @@
       <option name="myName" value="Project Default" />
     </profile>
     <version value="1.0" />
+  </component>
+  <component name="KotlinCommonCompilerArguments">
+    <option name="languageVersion" value="1.1" />
+    <option name="apiVersion" value="1.1" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -460,6 +472,39 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://D:/Maven/.m2/repository/com/alibaba/fastjson/1.2.17/fastjson-1.2.17-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.4.0">
+      <CLASSES>
+        <root url="jar://D:/Maven/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.4.0/jackson-annotations-2.4.0.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://D:/Maven/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.4.0/jackson-annotations-2.4.0-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://D:/Maven/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.4.0/jackson-annotations-2.4.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: com.fasterxml.jackson.core:jackson-core:2.4.2">
+      <CLASSES>
+        <root url="jar://D:/Maven/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.4.2/jackson-core-2.4.2.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://D:/Maven/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.4.2/jackson-core-2.4.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://D:/Maven/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.4.2/jackson-core-2.4.2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: com.fasterxml.jackson.core:jackson-databind:2.4.2">
+      <CLASSES>
+        <root url="jar://D:/Maven/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.4.2/jackson-databind-2.4.2.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://D:/Maven/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.4.2/jackson-databind-2.4.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://D:/Maven/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.4.2/jackson-databind-2.4.2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-codec:commons-codec:1.10">
@@ -779,6 +824,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://D:/Maven/.m2/repository/org/springframework/spring-jdbc/4.2.5.RELEASE/spring-jdbc-4.2.5.RELEASE-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.springframework:spring-jdbc:4.3.1.RELEASE">
+      <CLASSES>
+        <root url="jar://D:/Maven/.m2/repository/org/springframework/spring-jdbc/4.3.1.RELEASE/spring-jdbc-4.3.1.RELEASE.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://D:/Maven/.m2/repository/org/springframework/spring-jdbc/4.3.1.RELEASE/spring-jdbc-4.3.1.RELEASE-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://D:/Maven/.m2/repository/org/springframework/spring-jdbc/4.3.1.RELEASE/spring-jdbc-4.3.1.RELEASE-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework:spring-test:4.3.1.RELEASE">

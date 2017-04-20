@@ -1,6 +1,6 @@
 package com.crazygis.security;
 
-import com.crazygis.security.model.User;
+import com.crazygis.security.model.SysUser;
 
 /**
  * Created by xuguolin on 2017/3/18.
@@ -11,5 +11,5 @@ public interface IUserManager {
      * @param userName
      * @return
      */
-    User loadUserByUsername(String userName);
+    SysUser loadUserByUsername(String userName);
 }

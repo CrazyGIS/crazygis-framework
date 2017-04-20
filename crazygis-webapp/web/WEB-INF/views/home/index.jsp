@@ -2,7 +2,7 @@
 <%@ page import="com.crazygis.common.PropertiesManager" %>
 <%@ page import="com.crazygis.web.page.PageResource" %><%--
   Created by IntelliJ IDEA.
-  User: xuguolin
+  SysUser: xuguolin
   Date: 2017/3/21
   Time: 14:15
   To change this template use File | Settings | File Templates.
@@ -81,11 +81,6 @@
                         <i class="fa fa-home"></i>
                     </button>
                 </li>
-                <li>
-                    <button id="layersControl" class="icon-button" title="图层">
-                        <i class="fa fa-list"></i>
-                    </button>
-                </li>
             </ul>
         </div>
     </div>
@@ -143,47 +138,47 @@
                             target: 'mapContainer'
                         });
 
-//                        // 添加AIS瓦片图层
-//                        aisTileLayer = pageLogic.aisTileLayer = new ol.layer.Tile({
-//                            id: 'ais',
-//                            name: "AIS船舶",
-//                            source: new ol.source.TileWMS({
-//                                url: 'http://localhost:8888/geoserver/crazygis/wms',
-//                                params: {
-//                                    'FORMAT': 'image/png',
-//                                    'VERSION': '1.1.1',
-//                                    tiled: true,
-//                                    STYLES: '',
-//                                    LAYERS: 'crazygis:dynamic_ship',
-//                                    tilesOrigin: 118.396537780762 + "," + 31.848030090332
-//                                }
-//                            }),
-//                            minResolution: 0.000171661376953125, // 13
-//                            maxResolution: 1.40625              // 0
-//                        });
-//
-//                        map.addLayer(aisTileLayer);
-//
-//                        // AIS数据源
-//                        aisVectorSource = pageLogic.aisVectorSource = new ol.source.Vector({
-//                            format: new ol.format.GeoJSON(),
-//                            url: function (extent) {
-//                                return 'http://localhost:8888/geoserver/crazygis/wfs?service=WFS&' +
-//                                    'version=1.1.0&request=GetFeature&typename=crazygis:dynamic_ship&' +
-//                                    'outputFormat=application/json&srsname=EPSG:4326&' +
-//                                    'bbox=' + extent.join(',') + ',EPSG:4326' + '&t=' + new Date().getTime();
-//                            },
-//                            strategy: ol.loadingstrategy.bbox
-//                        });
-//                        // 添加AIS要素图层
-//                        aisFeatureLayer = pageLogic.aisFeatureLayer = new ol.layer.Vector({
-//                            source: aisVectorSource,
-//                            style: pageLogic.shipRender.getShipStyle,
-//                            minResolution: 0.000005364418029785156, // 18
-//                            maxResolution: 0.000171661376953125  // 13
-//                        });
-//
-//                        map.addLayer(aisFeatureLayer);
+                        // 添加AIS瓦片图层
+                        aisTileLayer = pageLogic.aisTileLayer = new ol.layer.Tile({
+                            id: 'ais',
+                            name: "AIS船舶",
+                            source: new ol.source.TileWMS({
+                                url: 'http://localhost:8888/geoserver/crazygis/wms',
+                                params: {
+                                    'FORMAT': 'image/png',
+                                    'VERSION': '1.1.1',
+                                    tiled: true,
+                                    STYLES: '',
+                                    LAYERS: 'crazygis:dynamic_ship',
+                                    tilesOrigin: 118.396537780762 + "," + 31.848030090332
+                                }
+                            }),
+                            minResolution: 0.000171661376953125, // 13
+                            maxResolution: 1.40625              // 0
+                        });
+
+                        map.addLayer(aisTileLayer);
+
+                        // AIS数据源
+                        aisVectorSource = pageLogic.aisVectorSource = new ol.source.Vector({
+                            format: new ol.format.GeoJSON(),
+                            url: function (extent) {
+                                return 'http://localhost:8888/geoserver/crazygis/wfs?service=WFS&' +
+                                    'version=1.1.0&request=GetFeature&typename=crazygis:dynamic_ship&' +
+                                    'outputFormat=application/json&srsname=EPSG:4326&' +
+                                    'bbox=' + extent.join(',') + ',EPSG:4326' + '&t=' + new Date().getTime();
+                            },
+                            strategy: ol.loadingstrategy.bbox
+                        });
+                        // 添加AIS要素图层
+                        aisFeatureLayer = pageLogic.aisFeatureLayer = new ol.layer.Vector({
+                            source: aisVectorSource,
+                            style: pageLogic.shipRender.getShipStyle,
+                            minResolution: 0.000005364418029785156, // 18
+                            maxResolution: 0.000171661376953125  // 13
+                        });
+
+                        map.addLayer(aisFeatureLayer);
                     },
                     //在布局计算前创建控件
                     before: function () {
@@ -211,15 +206,56 @@
                     events: function () {
                         var that = this;
                         $("#zoomIn").click(function (e) {
-
+                            var currentResolution = pageLogic.map.getView().getResolution();
+                            var minResolution = pageLogic.map.getView().getMinResolution();
+                            if (currentResolution <= minResolution) {
+                                return;
+                            }
+                            if (currentResolution)
+                                var zoomAnimation = ol.animation.zoom({
+                                    duration: 250,
+                                    resolution: currentResolution,
+                                    easing: ol.easing.linear
+                                });
+                            pageLogic.map.beforeRender(zoomAnimation);
+                            pageLogic.map.getView().setResolution(currentResolution / 2);
                         });
 
                         $("#zoomOut").click(function (e) {
-
+                            var currentResolution = pageLogic.map.getView().getResolution();
+                            var maxResolution = pageLogic.map.getView().getMaxResolution();
+                            if (currentResolution >= maxResolution) {
+                                return;
+                            }
+                            var zoomAnimation = ol.animation.zoom({
+                                duration: 250,
+                                resolution: currentResolution,
+                                easing: ol.easing.linear
+                            });
+                            pageLogic.map.beforeRender(zoomAnimation);
+                            pageLogic.map.getView().setResolution(currentResolution * 2);
                         });
 
                         $("#home").click(function (e) {
+                            // 先平移
+                            var currentCenter = pageLogic.map.getView().getCenter();
+                            var panAnimation = ol.animation.pan({
+                                duration: 250,
+                                source: currentCenter,
+                                easing: ol.easing.linear
+                            });
+                            pageLogic.map.beforeRender(panAnimation);
+                            pageLogic.map.getView().setCenter([118.78, 32.0865]);
 
+                            // 再缩放
+                            var currentResolution = pageLogic.map.getView().getResolution();
+                            var zoomAnimation = ol.animation.zoom({
+                                duration: 250,
+                                resolution: currentResolution,
+                                easing: ol.easing.linear
+                            });
+                            pageLogic.map.beforeRender(zoomAnimation);
+                            pageLogic.map.getView().setResolution(0.001373291015625);
                         });
 
                         

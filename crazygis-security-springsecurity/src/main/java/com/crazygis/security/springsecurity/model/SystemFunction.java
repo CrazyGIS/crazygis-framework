@@ -17,6 +17,9 @@ public class SystemFunction implements IFunction {
     private IFunction parent;
     private List<IFunction> children;
 
+    private String icon;
+    private String url;
+
     @Override
     public String getFunctionId() {
         return functionId;
@@ -83,5 +86,19 @@ public class SystemFunction implements IFunction {
         this.children = children;
     }
 
+    public String getIcon() {
+        return icon;
+    }
 
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

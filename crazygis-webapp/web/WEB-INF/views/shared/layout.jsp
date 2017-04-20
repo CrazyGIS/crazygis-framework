@@ -9,17 +9,16 @@
 <%@ page import="java.util.*" %>
 <%@ page import="com.crazygis.web.page.PageResource" %>
 <%@ page import="com.crazygis.web.utils.WebUtils" %>
-<%@ page import="com.crazygis.security.model.User" %>
+<%@ page import="com.crazygis.security.model.SysUser" %>
 <%@ page import="com.crazygis.web.UserContext" %>
 <%@ page import="com.crazygis.security.IFunction" %>
 <%@ page import="com.crazygis.security.springsecurity.model.SystemFunction" %>
-<%@ page import="com.crazygis.security.springsecurity.model.SystemMenu" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page import="com.crazygis.web.WebManager" %>
 
 <c:set var="ctxp" value="${pageContext.request.contextPath}"></c:set>
 <%
-    User user = UserContext.getCurrentUser();
+    SysUser user = UserContext.getCurrentUser();
     String username = "";
     if(user != null) {
         username = user.getUsername();
@@ -40,10 +39,10 @@
      */
     List<IFunction> menus = new ArrayList<>();
     List<IFunction> subMenus = null;
-    SystemMenu menu = null;
-    SystemMenu subMenu = null;
+    SystemFunction menu = null;
+    SystemFunction subMenu = null;
     // 首页
-    menu = new SystemMenu();
+    menu = new SystemFunction();
     menu.setFunctionId(UUID.randomUUID().toString().toLowerCase());
     menu.setFunctionCode("00");
     menu.setFunctionName("电子海图");
@@ -54,7 +53,7 @@
     menus.add(menu);
 
     // 图层管理
-    menu = new SystemMenu();
+    menu = new SystemFunction();
     menu.setFunctionId(UUID.randomUUID().toString().toLowerCase());
     menu.setFunctionCode("01");
     menu.setFunctionName("图层管理");
@@ -63,7 +62,7 @@
 
     subMenus = new ArrayList<>();
     // 点图层管理
-    subMenu = new SystemMenu();
+    subMenu = new SystemFunction();
     subMenu.setFunctionId(UUID.randomUUID().toString().toLowerCase());
     subMenu.setFunctionCode("01_01");
     subMenu.setFunctionName("点图层");
@@ -73,7 +72,7 @@
 
     subMenus.add(subMenu);
     // 线图层管理
-    subMenu = new SystemMenu();
+    subMenu = new SystemFunction();
     subMenu.setFunctionId(UUID.randomUUID().toString().toLowerCase());
     subMenu.setFunctionCode("01_02");
     subMenu.setFunctionName("线图层");
@@ -83,7 +82,7 @@
 
     subMenus.add(subMenu);
     // 面图层管理
-    subMenu = new SystemMenu();
+    subMenu = new SystemFunction();
     subMenu.setFunctionId(UUID.randomUUID().toString().toLowerCase());
     subMenu.setFunctionCode("01_03");
     subMenu.setFunctionName("面图层");
@@ -159,7 +158,7 @@
         <a id="menuBtn" class="menu-icon" href="javascript:void(0)">
             <b class="menu-icon-background title-color"></b>
             <img src="../content/icons/menu-button.png" alt="" />
-        </a><span style="margin-left:8px;">CrazyGIS Framework DEMO</span>
+        </a><span style="margin-left:8px;">江苏省地方海事水上交通安全监测预警(VITS)系统</span>
     </h1>
     <ul id="headerTags">
     </ul>
@@ -178,7 +177,7 @@
             <%
                 if(menus != null) {
                     for(IFunction m : menus) {
-                        menu = (SystemMenu)m;
+                        menu = (SystemFunction)m;
                         if(menu.getChildren() == null || menu.getChildren().size() == 0) {
                             currentClass = menu.getFunctionCode().equals(currentFunctionCode) ? "class=\"current-menu background-highlight selected-menu\"" : "";
                         } else {
@@ -213,7 +212,7 @@
                 <ul>
                     <%
                         for(IFunction sm : menu.getChildren()) {
-                            subMenu = (SystemMenu)sm;
+                            subMenu = (SystemFunction)sm;
                             currentClass = subMenu.getFunctionCode().equals(currentFunctionCode) ? "class=\"selected-menu\"" : "";
                     %>
                     <li <%=currentClass%>>

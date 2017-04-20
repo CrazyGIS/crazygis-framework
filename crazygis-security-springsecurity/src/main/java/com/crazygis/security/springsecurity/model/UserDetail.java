@@ -1,6 +1,6 @@
 package com.crazygis.security.springsecurity.model;
 
-import com.crazygis.security.model.User;
+import com.crazygis.security.model.SysUser;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,7 +12,7 @@ import java.util.*;
 /**
  * Created by xuguolin on 2017/3/18.
  */
-public class UserDetail extends User implements UserDetails, CredentialsContainer {
+public class UserDetail extends SysUser implements UserDetails, CredentialsContainer {
     private static final long serialVersionUID = 400L;
     private String password;
     private Set<GrantedAuthority> authorities;
@@ -93,18 +93,18 @@ public class UserDetail extends User implements UserDetails, CredentialsContaine
 
     public boolean equals(Object rhs) {
         return rhs instanceof UserDetails
-                ? this.username.equals(((UserDetails) rhs).getUsername())
+                ? this.getUsername().equals(((UserDetails) rhs).getUsername())
                 : false;
     }
 
     public int hashCode() {
-        return this.username.hashCode();
+        return this.getUsername().hashCode();
     }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(super.toString()).append(": ");
-        sb.append("Username: ").append(this.username).append("; ");
+        sb.append("Username: ").append(this.getUsername()).append("; ");
         sb.append("Password: [PROTECTED]; ");
         sb.append("Enabled: ").append(this.enabled).append("; ");
         sb.append("AccountNonExpired: ").append(this.accountNonExpired).append("; ");

@@ -3,7 +3,7 @@ package com.crazygis.security.springsecurity;
 import com.crazygis.security.ISecureObject;
 import com.crazygis.security.ISecureObjectManager;
 import com.crazygis.security.IUserManager;
-import com.crazygis.security.model.User;
+import com.crazygis.security.model.SysUser;
 import com.crazygis.security.springsecurity.model.UserDetail;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
@@ -54,7 +54,7 @@ public class DefaultSecurityManager implements IUserManager, ISecureObjectManage
     }
 
     @Override
-    public User loadUserByUsername(String userName) {
+    public SysUser loadUserByUsername(String userName) {
         UserDetail user = new UserDetail();
         user.setUsername(userName);
         user.setPassword("c4ca4238a0b923820dcc509a6f75849b");
@@ -62,6 +62,6 @@ public class DefaultSecurityManager implements IUserManager, ISecureObjectManage
         return user;
 
         // TODO:用户名默认为admin,默认密码为1,经过加密(加盐)后是:c3ce8345d3599ab8a4c337d9fb0d0d93
-        //return new User(userName, "c3ce8345d3599ab8a4c337d9fb0d0d93", true, true, true, true, AuthorityUtils.createAuthorityList("user"));
+        //return new SysUser(userName, "c3ce8345d3599ab8a4c337d9fb0d0d93", true, true, true, true, AuthorityUtils.createAuthorityList("user"));
     }
 }

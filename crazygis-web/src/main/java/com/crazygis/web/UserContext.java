@@ -1,6 +1,6 @@
 package com.crazygis.web;
 
-import com.crazygis.security.model.User;
+import com.crazygis.security.model.SysUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -13,17 +13,17 @@ public class UserContext {
      *
      * @return
      */
-    public static User getCurrentUser() {
+    public static SysUser getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null) {
             return null;
         }
 
         Object principal = authentication.getPrincipal();
-        if (principal == null || !(principal instanceof User)) {
+        if (principal == null || !(principal instanceof SysUser)) {
             return null;
         }
 
-        return (User) principal;
+        return (SysUser) principal;
     }
 }

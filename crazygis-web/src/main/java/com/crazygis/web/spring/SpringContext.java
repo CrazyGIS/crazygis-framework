@@ -26,4 +26,13 @@ public class SpringContext implements ApplicationContextAware {
         return applicationContext.getBean(beanName);
     }
 
+    /**
+     * 获取配置文件中配置的Bean实例对象
+     * @param clazz
+     * @return
+     */
+    public static Object getBean(Class<?> clazz) {
+        return applicationContext.getBean(clazz);
+    }
+
 }

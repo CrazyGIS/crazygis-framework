@@ -10,10 +10,24 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>crazygis-data-springjdbc</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>${crazygis-data-springjdbc.version}</version>
 
     <dependencies>
-
+        <dependency>
+            <groupId>com.crazygis</groupId>
+            <artifactId>crazygis-data-api</artifactId>
+            <version>${crazygis-data-api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.crazygis</groupId>
+            <artifactId>crazygis-common</artifactId>
+            <version>${crazygis-common.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

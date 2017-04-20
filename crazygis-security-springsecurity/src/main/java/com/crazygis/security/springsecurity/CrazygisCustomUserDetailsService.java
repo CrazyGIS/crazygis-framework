@@ -1,7 +1,7 @@
 package com.crazygis.security.springsecurity;
 
 import com.crazygis.security.IUserManager;
-import com.crazygis.security.model.User;
+import com.crazygis.security.model.SysUser;
 import com.crazygis.security.springsecurity.model.UserDetail;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,7 +28,7 @@ public class CrazygisCustomUserDetailsService implements UserDetailsService {
             throw new RuntimeException("Can not find userManager when loadUserByUsername.");
         }
 
-        User user = this.userManager.loadUserByUsername(username);
+        SysUser user = this.userManager.loadUserByUsername(username);
         UserDetails userDetails;
         if(user instanceof UserDetails) {
             userDetails = (UserDetails)user;

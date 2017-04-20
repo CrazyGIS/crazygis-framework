@@ -5,20 +5,21 @@ import java.util.List;
 /**
  * Created by xuguolin on 2017/3/18.
  */
-public class User {
-    public String userId;  // 用户ID
-    public String username;  // 用户名
-    public String realName;  // 姓名
-    public boolean enabled;  // 是否有效
-    public String userCode;  // 用户编号
-    public String organizationId;  // 组织机构ID
-    public String organizationName;  // 组织机构名称
-    public String departmentId;    // 部门ID
-    public String departmentName;    // 部门名称
-    public String positionId;      // 职位ID
-    public String positionName;      // 职位名称
-    public String status;            // 用户状态
-    public List<Role> roles;         // 用户的角色列表
+public class SysUser {
+    private String userId;  // 用户ID
+    private String username;  // 用户名
+    private String realName;  // 姓名
+    private boolean enabled;  // 是否有效
+    private String userCode;  // 用户编号
+    private String organizationId;  // 组织机构ID
+    private String organizationName;  // 组织机构名称
+    private String departmentId;    // 部门ID
+    private String departmentName;    // 部门名称
+    private String positionId;      // 职位ID
+    private String positionName;      // 职位名称
+    private String status;            // 用户状态
+
+    public List<SysRole> roles;         // 用户的角色列表
 
     public String getUserId() {
         return userId;
@@ -116,11 +117,11 @@ public class User {
         this.status = status;
     }
 
-    public List<Role> getRoles() {
+    public List<SysRole> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(List<SysRole> roles) {
         this.roles = roles;
     }
 }
